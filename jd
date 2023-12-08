@@ -1,0 +1,4 @@
+#!/bin/sh
+path=$(find ~ ~/Desktop/work ~/.config ~/scripts ~/Desktop -mindepth 1 -maxdepth 1 | fzf)
+echo "$path"
+

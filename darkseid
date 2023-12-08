@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Find the path to the project
+path=$(find ~ ~/Desktop/work ~/.config ~/scripts ~/Desktop -mindepth 1 -maxdepth 1 | fzf)
+# Change to the specified directory
+cd "$path" || exit
+# Check if tmux is already initialized
+if command -v tmux &> /dev/null; then
+    # Get the base name of the path
+    session_name=$(basename "$path")
+    # Check if a session with the same name already exists
+    if tmux has-session -t "$session_name" 2> /dev/null; then
+        # Switch to the existing session
+        tmux switch-client -t "$session_name"
+    else
+        # Create a new session with the name of the path
+        tmux new-session -s "$session_name" -d
+        # switch to the new session
+        tmux switch-client -t "$session_name"
+    fi
+fi
+

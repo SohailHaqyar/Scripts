@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# this script is used to find a git branch with fuzzy finding and switch to it
+# if -r is passed, get remote branches otherwise get local branches
+if [ "$1" = "-r" ]; then
+  git branch -r | fzf | sed 's/origin\///g'
+else
+  git branch | fzf 
+fi
