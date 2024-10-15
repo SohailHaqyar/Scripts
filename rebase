@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" = "-r" ]; then
+  rebase_branch=$(git branch -r | fzf | sed 's/origin\///g')
+else
+  rebase_branch=$(git branch | fzf)
+fi
+
+git rebase $(echo $rebase_branch)
+

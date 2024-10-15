@@ -1,0 +1,7 @@
+#!/bin/sh
+git add .
+git commit 
+url=$(push| grep "Remote URL"| awk '{print $4}' | sed 's/[()]//g')
+echo $url
+
+

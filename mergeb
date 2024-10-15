@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" = "-r" ]; then
+  branch=$(git branch -r | fzf | sed 's/origin\///g')
+else
+  branch=$(git branch | fzf)
+fi
+
+git merge $(echo $branch)
+
