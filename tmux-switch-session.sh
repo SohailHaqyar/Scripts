@@ -9,6 +9,13 @@ tmux_switch_to_session() {
 }
 
 choice=$(sort -rfu <<< "$tmuxsessions" \
-    | fzf-tmux \
-    | tr -d '\n')
+  | fzf-tmux --height 40% \
+          --border rounded \
+          --prompt "Switch to session: " \
+          --preview 'tmux capture-pane -pt {}' 
+)
+
 tmux_switch_to_session "$choice"
+
+
+
