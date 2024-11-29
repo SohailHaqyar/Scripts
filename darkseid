@@ -1,39 +1,6 @@
-# #!/bin/bash
-# # Find the path to the project
-# path=$(find ~ ~/work ~/.config ~/scripts ~/personal-projects  -mindepth 1 -maxdepth 1 | fzf)
-# eza --oneline ~/.config/tmuxinator/ | sed 's/\.yml//g'
-# # Change to the specified directory
-# cd "$path" || exit
-# # Check if tmux is available
-# if command -v tmux &> /dev/null; then
-#     # Get the base name of the path
-#     session_name=$(basename "$path")
-#     
-#     # Check if a session with the same name already exists
-#     if tmux has-session -t "$session_name" 2> /dev/null; then
-#         # If we're already in tmux, switch to the session
-#         if [ -n "$TMUX" ]; then
-#             tmux switch-client -t "$session_name"
-#         else
-#             # If we're not in tmux, attach to the session
-#             tmux attach-session -t "$session_name"
-#         fi
-#     else
-#         # Create a new session with the name of the path
-#         tmux new-session -s "$session_name" -d
-#         # If we're already in tmux, switch to it
-#         if [ -n "$TMUX" ]; then
-#             tmux switch-client -t "$session_name"
-#         else
-#             # If we're not in tmux, attach to the new session
-#             tmux attach-session -t "$session_name"
-#         fi
-#     fi
-# fi
-
 #!/bin/bash
 # Find the path to the project
-path=$(find ~ ~/work ~/.config ~/scripts ~/personal-projects  -mindepth 1 -maxdepth 1 | fzf)
+path=$(find  ~ ~/work ~/work/worktrees/ ~/.config ~/scripts ~/personal-projects  -mindepth 1 -maxdepth 1 -type d | fzf --height 60% --border rounded)
 # Change to the specified directory
 cd "$path" || exit
 # Get the base name of the path
@@ -52,11 +19,6 @@ if command -v tmux &> /dev/null; then
                 tmux attach-session -t "$session_name"
             fi
         else
-            # Session doesn't exist, start it with tmuxinator
-            if [ -n "$TMUX" ]; then
-                # If in tmux, detach first (tmuxinator needs to create new session)
-                tmux detach
-            fi
             tmuxinator start "$session_name"
         fi
     else
