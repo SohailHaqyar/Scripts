@@ -45,21 +45,11 @@ EARLY_UNLOCK_MESSAGES = [
 def play_tardis_bell():
     try:
         # Use timeout to kill paplay after 5 seconds
-        subprocess.Popen(['timeout', '10', 'paplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
+        subprocess.Popen(['timeout', '5', 'paplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
     except FileNotFoundError:
         try:
             # Fallback to aplay with timeout
-            subprocess.Popen(['timeout', '10', 'aplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
-        except FileNotFoundError:
-            print("No audio player found")
-
-def play_final_countdown():
-    try:
-        subprocess.Popen(['timeout', '30', 'paplay', os.path.expanduser('~/doctor-who/sound-effects/doctor-who-matt-smith-theme.opus')])
-    except FileNotFoundError:
-        try:
-            # Fallback to aplay with timeout
-            subprocess.Popen(['timeout', '30', 'aplay', os.path.expanduser('~/doctor-who/sound-effects/doctor-who-matt-smith-theme.opus')])
+            subprocess.Popen(['timeout', '5', 'aplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
         except FileNotFoundError:
             print("No audio player found")
 
@@ -67,7 +57,7 @@ def create_swaylock_config():
     config_dir = os.path.expanduser("~/.config/swaylock")
     os.makedirs(config_dir, exist_ok=True)
     
-    image_path = os.path.expanduser("~/Downloads/spaceman_art-wallpaper-7680x2160.jpg")  # Adjust path to your image
+    image_path = os.path.expanduser("~/Pictures/supermassive_black_hole-wallpaper-2560x1600.jpg")  # Adjust path to your image
     
     config_path = os.path.join(config_dir, "config")
     config_content = f"""
@@ -178,7 +168,7 @@ class CountdownWindow(Gtk.Window):
         
         self.add(vbox)
         
-        self.remaining = 60
+        self.remaining = 30
         self.update_label()
         self.warning_countdown = 0
         self.final_warning_played = False
@@ -221,8 +211,8 @@ class CountdownWindow(Gtk.Window):
                 self.warning_label.set_text("")
         
         if self.remaining > 0:
-            if self.remaining == 25 and not self.final_warning_played:
-                play_final_countdown()
+            if self.remaining == 5 and not self.final_warning_played:
+                play_tardis_bell()
                 self.final_warning_played = True
             
             self.remaining -= 1
@@ -244,6 +234,7 @@ def main():
     create_swaylock_config()
     send_notification()
     time.sleep(30)
+    subprocess.run(['playerctl', 'pause'])
     start_lock()
 
 def start_lock():
