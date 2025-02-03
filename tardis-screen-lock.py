@@ -45,11 +45,11 @@ EARLY_UNLOCK_MESSAGES = [
 def play_tardis_bell():
     try:
         # Use timeout to kill paplay after 5 seconds
-        subprocess.Popen(['timeout', '5', 'paplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
+        subprocess.Popen(['timeout', '3', 'paplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
     except FileNotFoundError:
         try:
             # Fallback to aplay with timeout
-            subprocess.Popen(['timeout', '5', 'aplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
+            subprocess.Popen(['timeout', '3', 'aplay', os.path.expanduser('~/doctor-who/sound-effects/Cloister_Bell_In_The_TARDIS.mp3')])
         except FileNotFoundError:
             print("No audio player found")
 
@@ -57,7 +57,7 @@ def create_swaylock_config():
     config_dir = os.path.expanduser("~/.config/swaylock")
     os.makedirs(config_dir, exist_ok=True)
     
-    image_path = os.path.expanduser("~/Pictures/supermassive_black_hole-wallpaper-2560x1600.jpg")  # Adjust path to your image
+    image_path = os.path.expanduser("~/Pictures/Galaxies.png")  # Adjust path to your image
     
     config_path = os.path.join(config_dir, "config")
     config_content = f"""

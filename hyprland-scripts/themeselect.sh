@@ -11,7 +11,7 @@ rofiConf="${confDir}/rofi/selector.rasi"
 #// set rofi scaling
 
 [[ "${rofiScale}" =~ ^[0-9]+$ ]] || rofiScale=10
-r_scale="configuration {font: \"JetBrainsMono Nerd Font ${rofiScale}\";}"
+r_scale="configuration {font: \"Maple Mono NF ${rofiScale}\";}"
 elem_border=$(( hypr_border * 5 ))
 icon_border=$(( elem_border - 5 ))
 

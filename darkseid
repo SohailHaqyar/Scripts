@@ -1,6 +1,6 @@
 #!/bin/bash
 # Find the path to the project
-path=$(find  ~ ~/work ~/Documents ~/work/worktrees/ ~/.config ~/scripts ~/personal-projects  -mindepth 1 -maxdepth 1 -type d | fzf --height 60% --border rounded)
+path=$(find  ~ ~/work ~/Documents ~/work/worktrees/ ~/.config ~/scripts ~/personal-projects  -mindepth 1 -maxdepth 1 -type d | fzf )
 # Change to the specified directory
 cd "$path" || exit
 # Get the base name of the path

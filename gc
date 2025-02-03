@@ -2,6 +2,7 @@
 # gc.sh - git checkout
 
 if [ "$1" = "-r" ]; then
+  git fetch origin
   git checkout $(git branch -r | fzf | sed 's/origin\///g')
 else
   git checkout $(git branch | fzf)
